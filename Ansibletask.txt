@@ -1,0 +1,40 @@
+ directory create using permission
+ ansible demo -m file -a "path=sam state=directory mode=0755"
+
+ directory create
+ ansible demo -m file -a "path=dev state=directory"
+
+ delete directory
+ ansible demo -m file -a "path=dev state=absent"
+ 
+ file create using permission
+ ansible demo -m file -a "path=prerana state=touch mode=0644"
+
+ file create 
+ ansible demo -m file -a "path=prerana1 state=touch"
+
+ file delete
+ ansible demo -m file -a "path=prerana1 state=absent"
+
+ user create
+ ansible demo -m user -a "name=devops state=present" -b
+
+ user delete
+ ansible demo -m user -a "name=devops state=absent" -b
+
+ group create
+ ansible demo -m group -a "name=devops1 state=present" -b
+
+ group delete
+ ansible demo -m group -a "name=devops1 state=absent" -b
+   
+ there is no move cmd 
+
+
+
+
+
+
+
+  
+     
