@@ -1,0 +1,82 @@
+using jdk
+
+# Use an official Java runtime as a parent image
+FROM openjdk:17-jdk-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the Java source code into the container
+COPY HelloDevOps.java .
+
+# Compile the Java source code
+RUN javac HelloDevOps.java
+
+# Set the command to run the compiled Java class
+CMD ["java", "HelloDevOps"]
+
+-------------------------------------------
+
+using amazon Linux
+
+FROM amazonlinux
+
+# Set the working directory in the container
+WORKDIR /app
+
+RUN yum install java-11* -y
+
+# Copy the Java source code into the container
+COPY HelloDevOps.java .
+
+# Compile the Java source code
+RUN javac HelloDevOps.java
+
+# Set the command to run the compiled Java class
+CMD ["java", "HelloDevOps"]
+
+--------------------------------------------using ubuntu
+
+# Use an official Ubuntu image as the base image
+FROM ubuntu:latest
+
+# Update the package list and install Java
+RUN apt-get update && apt-get install -y default-jdk
+
+# Set the working directory to /app
+WORKDIR /app
+
+# Copy the Java file into the container
+COPY HelloDevOps.java .
+
+# Compile the Java program
+RUN javac HelloDevOps.java
+
+# Run the Java program when the container starts
+CMD ["java", "HelloDevOps"]
+
+
+-----------------------------------
+
+java file
+
+public class HelloDevOps {
+    public static void main(String[] args) {
+        System.out.println("Hello DevOps");
+    }
+}
+
+-------------------------------------
+
+to bulid dockerfile cmd
+
+docker build -t hello-devops-java .
+
+to run 
+
+docker run hello-devops-java
+
+------------------------------------------
+
+
+

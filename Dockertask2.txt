@@ -1,0 +1,93 @@
+plabook task script
+---
+- name: playbook
+  hosts: demo
+  user: ansible
+  become: yes
+  connection: ssh
+  tasks:
+    - name: install docker
+      yum:
+        name: docker
+        state: present
+    - name: to start service
+      service:
+        name: docker
+        state: started
+    - name: pull httpd
+      shell: docker pull httpd
+    - name: run container
+      shell: docker run -it -d --name preru -p 8000:80 httpd
+    - name: snapshot
+      shell: docker commit preru  preranahp/skypers
+    - name: push image
+      shell: docker push preranahp/skypers
+
+-------------------------------------------------
+
+---
+- name: playbook
+  hosts: demo
+  user: ansible
+  become: yes
+  connection: ssh
+  tasks:
+    - name: install git
+      yum:
+        name: git
+        state: present
+    - name: to pull
+      shell: git clone https://github.com/Preranahp/testfreshers.git
+
+----------------------------------------------------------
+
+---
+- name: playbook
+  hosts: demo
+  user: ansible
+  become: yes
+  connection: ssh
+  tasks:
+    - name: Copy file to worker node
+      copy:
+        src: sample.txt
+        dest: ./
+
+-------------------------------------------
+
+pipeline {
+    agent any
+    
+
+    stages {
+        stage('pull image') {
+            steps {
+               sh 'docker pull nginx'
+            }
+        }
+
+        stage('run container') {
+            steps {
+                script {
+                  sh 'docker run -it -d --name task -p 8001:80 nginx'
+                }
+            }
+        }
+
+    }
+}
+
+
+---------------------------------------------------------
+# give it in Jenkins execute shell
+docker pull nginx
+docker run -it -d --name Jenkins -p 8000:80 nginx
+
+in terminal give permission cmd
+
+sudo chmod 777 /var/run/docker.sock
+
+then give build now in jenkins
+
+
+
